@@ -10,7 +10,7 @@ export const GlobalStyles = createGlobalStyle`
 
   &:focus {
     outline: 0;
-    box-shadow: 0 0 0 2px ${(props) => props.theme.colors.blue};
+    box-shadow: 0 0 6px 2px ${(props) => props.theme.colors.blue};
   }
 
   body {

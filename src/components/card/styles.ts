@@ -22,6 +22,7 @@ export const CardContainer = styled(Link)`
     justify-content: space-between;
     gap: 1rem;
     margin-bottom: 1.25rem;
+    width: 100%;
 
     h2 {
       flex: 1;
@@ -36,6 +37,7 @@ export const CardContainer = styled(Link)`
   }
 
   p {
+    width: 100%;
     word-break: break-all;
     color: ${(props) => props.theme.colors.text};
 

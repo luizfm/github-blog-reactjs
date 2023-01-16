@@ -1,6 +1,6 @@
-import GithubBlogLogo from '../assets/blog-logo.svg'
-import LeftEffect from '../assets/left-effect.svg'
-import RightEffect from '../assets/right-effect.svg'
+import GithubBlogLogo from '../../assets/blog-logo.svg'
+import LeftEffect from '../../assets/left-effect.svg'
+import RightEffect from '../../assets/right-effect.svg'
 
 import { HeaderContainer, HeaderContent, LinesImageEffect } from './styles'
 

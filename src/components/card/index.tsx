@@ -2,16 +2,16 @@ import { formatDistanceToNow } from 'date-fns'
 import ptBRLocale from 'date-fns/locale/pt-BR'
 import { CardContainer } from './styles'
 
-interface CardProps {
-  id: string
+export interface CardProps {
+  number: string
   title: string
   updatedAt: string
   resume: string
 }
 
-export function Card({ title, updatedAt, id, resume }: CardProps) {
+export function Card({ title, updatedAt, number, resume }: CardProps) {
   return (
-    <CardContainer to={`/post/${id}`}>
+    <CardContainer to={`/post/${number}`}>
       <header>
         <h2>{title}</h2>
         <time dateTime={updatedAt}>

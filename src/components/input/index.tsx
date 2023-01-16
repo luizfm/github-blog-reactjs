@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from 'react'
+import { forwardRef, InputHTMLAttributes } from 'react'
 import { InputContainer } from './styles'
 
 interface BaseInput {
@@ -9,13 +9,16 @@ interface BaseInput {
 
 type InputProps = BaseInput & InputHTMLAttributes<HTMLInputElement>
 
-export function Input({ id, className, ...rest }: InputProps) {
-  return (
-    <InputContainer className={className}>
-      <label htmlFor={id}></label>
-      <input id={id} {...rest} />
-    </InputContainer>
-  )
-}
+// eslint-disable-next-line react/display-name
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ id, className, ...rest }, ref) => {
+    return (
+      <InputContainer className={className}>
+        <label htmlFor={id}></label>
+        <input id={id} {...rest} />
+      </InputContainer>
+    )
+  },
+)
 
 export default Input
