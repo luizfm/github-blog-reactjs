@@ -10,10 +10,7 @@ import {
 } from './styles'
 import { useForm } from 'react-hook-form'
 import usePrevious from '../../hooks/usePrevious'
-import {
-  fetchUserRepoIssues,
-  listUserRepoIssues,
-} from '../../../services/github'
+import { fetchUserRepoIssues } from '../../../services/github'
 
 type CardPropsResponse = Omit<CardProps, 'updatedAt'> & {
   updated_at: string
@@ -21,16 +18,20 @@ type CardPropsResponse = Omit<CardProps, 'updatedAt'> & {
   id: number
 }
 
-export function RepositoriesList() {
+interface RepositoriesListProps {
+  initialList: CardPropsResponse[]
+}
+
+export function RepositoriesList({ initialList }: RepositoriesListProps) {
   const [search, setSearch] = useState()
-  const [useAlternativeApi, setUseAlternativeApi] = useState(true)
   const previousSearchValue = usePrevious(search)
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
   } = useForm({ mode: 'onSubmit' })
-  const [repoIssuesList, setRepoIssuesList] = useState<CardPropsResponse[]>([])
+  const [repoIssuesList, setRepoIssuesList] =
+    useState<CardPropsResponse[]>(initialList)
 
   const onSubmit = handleSubmit((formData) => {
     console.log(formData)
@@ -46,39 +47,26 @@ export function RepositoriesList() {
 
       debounceSearch(value)
       onChange(event)
-      if (!value) {
-        setUseAlternativeApi(true)
-      }
     },
     [debounceSearch, onChange],
   )
 
   const updateRepoIssuesList = useCallback(async () => {
-    if (!isSubmitting && previousSearchValue !== search && search) {
-      const results = await fetchUserRepoIssues({ query: search })
-      setRepoIssuesList(results.items)
-    }
-  }, [isSubmitting, previousSearchValue, search])
-
-  const getFirstResults = useCallback(async () => {
-    setRepoIssuesList(
-      await listUserRepoIssues({
-        username: 'luizfm',
-        repo: 'github-blog-reactjs',
-      }),
-    )
-  }, [])
+    const results = await fetchUserRepoIssues({ query: search })
+    setRepoIssuesList(results)
+  }, [search])
 
   useEffect(() => {
-    updateRepoIssuesList()
-  }, [updateRepoIssuesList])
+    if (!isSubmitting && previousSearchValue !== search) {
+      updateRepoIssuesList()
+    }
+  }, [isSubmitting, previousSearchValue, search, updateRepoIssuesList])
 
   useEffect(() => {
-    if (useAlternativeApi) {
-      getFirstResults()
-      setUseAlternativeApi(false)
-    }
-  }, [getFirstResults, useAlternativeApi, repoIssuesList, search])
+    setRepoIssuesList(initialList)
+  }, [initialList])
+
+  console.log(repoIssuesList, initialList)
 
   return (
     <RepositoriesListContainer>

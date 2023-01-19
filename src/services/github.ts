@@ -1,19 +1,17 @@
 import { api } from './api'
 
 type FetchUserRepoIssuesProps = {
-  query: string
+  query?: string
   username?: string
   repo?: string
 }
-
-type ListUserRepoIssuesProps = Omit<FetchUserRepoIssuesProps, 'query'>
 
 type GetIssueByNumberProps = Omit<FetchUserRepoIssuesProps, 'query'> & {
   issueNumber: number
 }
 
 export const fetchUserRepoIssues = async ({
-  query,
+  query = '',
   username = 'luizfm',
   repo = 'github-blog-reactjs',
 }: FetchUserRepoIssuesProps) => {
@@ -22,20 +20,11 @@ export const fetchUserRepoIssues = async ({
     `/search/issues?q=${formattedQuery}%20repo:${username}/${repo}`,
   )
 
-  return results.data
+  return results.data.items
 }
 
 export const loadUserInfo = async (username: string) => {
   const results = await api.get(`/users/${username}`)
-
-  return results.data
-}
-
-export const listUserRepoIssues = async ({
-  username,
-  repo,
-}: ListUserRepoIssuesProps) => {
-  const results = await api.get(`/repos/${username}/${repo}/issues`)
 
   return results.data
 }

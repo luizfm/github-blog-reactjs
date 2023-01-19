@@ -1,7 +1,9 @@
 import styled from 'styled-components'
 import ReactMarkdown from 'react-markdown'
 
-export const PostDetailsContainer = styled.div``
+export const PostDetailsContainer = styled.div`
+  min-height: 100vh;
+`
 
 export const MarkdownContainer = styled(ReactMarkdown)`
   padding: 2.5rem 2rem;

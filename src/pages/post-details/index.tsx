@@ -27,8 +27,8 @@ export function PostDetails() {
     setIssue(
       await getIssueByNumber({
         issueNumber: Number(issueNumber),
-        username: 'luizfm',
-        repo: 'github-blog-reactjs',
+        username: import.meta.env.VITE_GITHUB_USERNAME,
+        repo: import.meta.env.VITE_GITHUB_REPO,
       }),
     )
   }, [issueNumber])

@@ -29,7 +29,6 @@ export function PostHeaderCard({
   title,
   user,
 }: PostHeaderCardProps) {
-  console.log('aqui dentro', user)
   return (
     <PostHeaderCardContainer>
       <header>
